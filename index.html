@@ -3,6 +3,66 @@
 	<title></title>
 	<script type="text/javascript">
 
+		// array of movie objects
+		var movies = [
+			{
+				title: 'Forrest Gump',
+				starring : ['Tom Hanks', 'Gary Sinese'],
+				isFavorite: true,
+				score: 10
+			},
+			{
+				title: 'Wedding Crashers',
+				starring : ['Owen Wilson', 'Vince Vaughn', 'Christopher Walken'],
+				isFavorite: true,
+				score: 10
+			},
+			{
+				title: 'Big',
+				starring : ['Tom Hanks', 'David Moscow'],
+				isFavorite: true,
+				score: 8
+			},
+			{
+				title: 'Vice Versa',
+				starring : ['Judge Reinhold', 'Fred Savage'],
+				isFavorite: true,
+				score: 8
+			},
+			{
+				title: 'When Harry Met Sally',
+				starring : ['Billy Crystal', 'Meg Ryan'],
+				isFavorite: false,
+				score: 6
+			},
+			{
+				title: 'The Dark Knight',
+				starring : ['Christian Bale', 'Heath Ledger'],
+				isFavorite: true,
+				score: 9
+			},{
+				title: 'Back to the Future',
+				starring : ['Christopher Lloyd', 'Michael J. Fox'],
+				isFavorite: false,
+				score: 6
+			},{
+				title: 'Toy Story',
+				starring : ['Tom Hanks', 'Tim Allen'],
+				isFavorite: true,
+				score: 10
+			},{
+				title: 'Good Will Hunting',
+				starring : ['Matt Damon', 'Ben Affleck'],
+				isFavorite: true,
+				score: 10
+			},{
+				title: 'Terminator 2: Judgement Day',
+				starring : ['Arnold Schwarzenegger', 'Linda Hamilton'],
+				isFavorite: false,
+				score: 7
+			}
+		]
+
 		function palidromeCheck() {
 			var originalText = document.getElementById('txtPalindrome').value;
 			var reversedText = originalText.split("").reverse().join("");
@@ -16,6 +76,26 @@
 			
 		}
 
+
+		function printMoviesReadable() {
+			var returnHtml = '';
+
+			// loop through movie array and append a single line for each movie.
+			for( var i=0; i < movies.length; i++ ) {
+				var node = movies[i];
+
+				returnHtml += node.title + ' starring ' + node.starring.toString().replace(/,/g, ", ") + ' has a score of ' + node.score + '<br>';
+			}
+
+			document.getElementById('movieAnswer').innerHTML = returnHtml;
+
+		}
+
+
+		function sortMovies() {
+			
+		}
+
 	</script>
 </head>
 <body>
@@ -25,6 +105,15 @@
 		<button onclick="palidromeCheck()">Check</button>
 		<h4>Answer:</h4>
 		<p id="answer"></p>
+	</div>
+		<div>
+		<h2>2: Movies</h2>
+		<button onclick="sortMovies('title')">Sort By Title</button>
+		<button onclick="sortMovies('score')">Sort By Score</button>
+		<button onclick="sortMovies('isFavorite')">Sort By isFavorite</button>
+		<button onclick="printMoviesReadable()">Print Readable version</button>
+		<h4>Answer:</h4>
+		<p id="movieAnswer"></p>
 	</div>
 </body>
 </html>
