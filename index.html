@@ -161,13 +161,36 @@
 
 		function printOddPosition() {
 			var returnHtml = '';
+
+			//loop through array to check the modulus of the index to determine odd positioning
 			for( var i=0; i < oddPositionArray.length; i++ ) {
 				if( i % 2 === 0 ) {
 					returnHtml += oddPositionArray[i] + ' ';
 				}
 			}
 
+			//push answer html to page
 			document.getElementById('oddPositionAnswer').innerText = returnHtml;
+		}
+
+		function printCombinedArray() {
+			var arrayOne = ['Metallica', 'Slipknot', 'Boyz II Men', 'Garth Brooks'];
+			var arrayTwo = ['Metal', 'Metal', 'R&B', 'Country'];
+			var returnArray = [];
+
+			/*
+				loop through first array and add the element 
+				from the 2nd array directly after adding the first arrays value
+
+				could possibly use arrayOne.splice() to accomplish this another way
+			*/
+			for( var i=0; i < arrayOne.length; i++ ) {
+				returnArray.push(arrayOne[i]);
+				returnArray.push(arrayTwo[i]);
+			}
+
+			document.getElementById('combinedArrayAnswer').innerText = returnArray.toString();
+
 		}
 
 	</script>
@@ -200,6 +223,12 @@
 		<button onclick="printOddPosition()">Print Odd Positions</button>
 		<h4>Answer:</h4>
 		<p id="oddPositionAnswer"></p>
+	</div>
+	<div>
+		<h2>5: Combine Array</h2>
+		<button onclick="printCombinedArray()">Print Combined Array</button>
+		<h4>Answer:</h4>
+		<p id="combinedArrayAnswer"></p>
 	</div>
 </body>
 </html>
