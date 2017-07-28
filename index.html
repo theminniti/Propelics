@@ -3,6 +3,17 @@
 	<title></title>
 	<script type="text/javascript">
 
+		/* 
+			!NOTE! ORINARILY WOULD NOT USE GLOBAL ARRAYS LIKE THIS.  WOULD PROTECT THEM IN A
+			PSUEDO NAMESPACE AND REFERENCE THEM BY THEIR NAMESPACE.
+
+			Example:
+				Pro.movies.sort()
+					- or -
+				Pro.movies[0].title = 'Forrest Gump 20th Anniversary Edition'
+
+		*/
+
 		// array of movie objects
 		var movies = [
 			{
@@ -66,7 +77,6 @@
 
 		//odd position elements array
 		var oddPositionArray = ['Jake', 'Mavis', 2, 'Drago', "Eric", 4, 10, 'Christopher', 'Bacon'];
-
 
 		function palidromeCheck() {
 			var originalText = document.getElementById('txtPalindrome').value;
@@ -169,9 +179,10 @@
 				}
 			}
 
-			//push answer html to page
+			//set innerText value to concatenated html string
 			document.getElementById('oddPositionAnswer').innerText = returnHtml;
 		}
+
 
 		function printCombinedArray() {
 			var arrayOne = ['Metallica', 'Slipknot', 'Boyz II Men', 'Garth Brooks'];
@@ -189,7 +200,72 @@
 				returnArray.push(arrayTwo[i]);
 			}
 
+			//set innerText value to concatenated html string
 			document.getElementById('combinedArrayAnswer').innerText = returnArray.toString();
+
+		}
+
+
+		function compressString() {
+			var inputString = document.getElementById('txtCompressed').value,
+				previousValue = '',
+				returnString = '',
+				count = 0
+				historicalCount = 0;
+
+			// loop through characters in the inputted string
+			for( var i=0; i < inputString.length; i++ ) {
+				var node = inputString[i];
+
+				/*
+					check to see if the previous value is the same as the current character
+					in the loop.  if so you have a match.  if there IS NO previous value
+					you are in the first increment of the loop.  if neither of these is true
+					then you have hit a new character and must append the previous value and
+					count to the returned string
+				*/
+				if( previousValue === node ) {
+					
+					count++;
+					historicalCount ++;
+					previousValue = node;
+
+				} else if ( previousValue === '' ) {
+					
+					previousValue = node;
+
+				} else {
+					
+					if( historicalCount == 0 ) {
+						returnString += previousValue;	
+					} else {
+						returnString += previousValue + ( count + 1 );	
+					}
+					
+					count = 0;
+					previousValue = node;
+
+				}
+
+				// if you are in the final increment of the loop, append the remaining character and count
+				if( inputString.length === i + 1 ) {
+					
+					// track the over arching change count to see if ANY matches were ever found
+					// if no matches return the original value
+					if( historicalCount === count && historicalCount < 1 && count < 1 ) {
+					 	returnString += node;	
+					} else {
+					 	returnString += node + ( count + 1 );	
+					}
+					
+					count = 0;
+					previousValue = '';
+
+				}
+
+			}
+			
+			document.getElementById('compressedStringAnswer').innerText = returnString;
 
 		}
 
@@ -230,5 +306,12 @@
 		<h4>Answer:</h4>
 		<p id="combinedArrayAnswer"></p>
 	</div>
+	<div>
+		<h2>6: Compressed String</h2>
+		<input type="text" id="txtCompressed"/>
+		<button onclick="compressString()">Check</button>
+		<h4>Answer:</h4>
+		<p id="compressedStringAnswer"></p>
+	</div>	
 </body>
 </html>
