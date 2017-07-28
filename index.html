@@ -3,11 +3,28 @@
 	<title></title>
 	<script type="text/javascript">
 
-		
+		function palidromeCheck() {
+			var originalText = document.getElementById('txtPalindrome').value;
+			var reversedText = originalText.split("").reverse().join("");
+
+			// check if original string matches the reversed string
+			if( reversedText === originalText ) {
+				document.getElementById('answer').innerText = "It's a Palidrome!";
+			} else {
+				document.getElementById('answer').innerText = "Sorry, it is not a Palidrome!";
+			}
+			
+		}
 
 	</script>
 </head>
 <body>
-
+	<div>
+		<h2>1: Palidrome Check</h2>
+		<input type="text" id="txtPalindrome"/>
+		<button onclick="palidromeCheck()">Check</button>
+		<h4>Answer:</h4>
+		<p id="answer"></p>
+	</div>
 </body>
 </html>
