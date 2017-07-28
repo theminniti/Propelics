@@ -33,7 +33,7 @@
 				title: 'When Harry Met Sally',
 				starring : ['Billy Crystal', 'Meg Ryan'],
 				isFavorite: false,
-				score: 6
+				score: 2
 			},
 			{
 				title: 'The Dark Knight',
@@ -44,7 +44,7 @@
 				title: 'Back to the Future',
 				starring : ['Christopher Lloyd', 'Michael J. Fox'],
 				isFavorite: false,
-				score: 6
+				score: 10
 			},{
 				title: 'Toy Story',
 				starring : ['Tom Hanks', 'Tim Allen'],
@@ -62,6 +62,7 @@
 				score: 7
 			}
 		]
+
 
 		function palidromeCheck() {
 			var originalText = document.getElementById('txtPalindrome').value;
@@ -92,11 +93,74 @@
 		}
 
 
-		function sortMovies() {
+		function printMovies() {
+			var returnHtml = '';
+
+			// loop through movie array and append a single line for each movie.
+			for( var i=0; i < movies.length; i++ ) {
+				var node = movies[i];
+
+				returnHtml += '<div class="movieItem"><strong>Title:</strong> ' + node.title + '<br>';
+				returnHtml += '<strong>Starring</strong> ' + node.starring.toString().replace(/,/g, ", ") + '<br>';
+				returnHtml += '<strong>Score</strong> ' + node.score + '<br>';
+				returnHtml += '<strong>Is Favorite</strong> ' + node.isFavorite + '</div>';
+			}
+
+			document.getElementById('movieAnswer').innerHTML = returnHtml;
+		}
+
+
+		function sortMovies( sortBy ) {
+			// get the desired order ASC or DESC
+			var order = document.getElementById('descOrder').checked;
+
+			// handle string sorting differently than bool or number
+			if( sortBy === 'title') {
+
+				movies.sort( function( movieOne, movieTwo ) {
+					var titleOne = movieOne[sortBy].toUpperCase();
+					var titleTwo = movieTwo[sortBy].toUpperCase();
+
+					if( order === true ) {
+						if ( titleTwo < titleOne ) {
+							return -1;
+						} else if ( titleTwo > titleOne ) {
+							return 1;
+						}
+					} else if ( order === false ) {
+						if ( titleOne < titleTwo ) {
+							return -1;
+						} else if ( titleOne > titleTwo ) {
+							return 1;
+						}
+					}
+					
+				});
+
+				printMovies();
+				
+			} else if( sortBy === 'score' || sortBy === 'isFavorite' ) {
+
+				movies.sort( function( movieOne, movieTwo ) {
+					if( order === true ) {
+						return movieTwo[sortBy] - movieOne[sortBy];
+					} else if ( order === false ) {
+						return movieOne[sortBy] - movieTwo[sortBy];
+					}
+				});
+
+				printMovies();
+
+			}
 			
 		}
 
 	</script>
+	<style type="text/css">
+		.movieItem {
+			padding: 10px;
+		}
+	</style>
 </head>
 <body>
 	<div>
@@ -108,6 +172,7 @@
 	</div>
 		<div>
 		<h2>2: Movies</h2>
+		Show In Descending<input type="checkbox" id="descOrder"/>
 		<button onclick="sortMovies('title')">Sort By Title</button>
 		<button onclick="sortMovies('score')">Sort By Score</button>
 		<button onclick="sortMovies('isFavorite')">Sort By isFavorite</button>
