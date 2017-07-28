@@ -64,6 +64,10 @@
 		]
 
 
+		//odd position elements array
+		var oddPositionArray = ['Jake', 'Mavis', 2, 'Drago', "Eric", 4, 10, 'Christopher', 'Bacon'];
+
+
 		function palidromeCheck() {
 			var originalText = document.getElementById('txtPalindrome').value;
 			var reversedText = originalText.split("").reverse().join("");
@@ -152,7 +156,18 @@
 				printMovies();
 
 			}
-			
+		}
+
+
+		function printOddPosition() {
+			var returnHtml = '';
+			for( var i=0; i < oddPositionArray.length; i++ ) {
+				if( i % 2 === 0 ) {
+					returnHtml += oddPositionArray[i] + ' ';
+				}
+			}
+
+			document.getElementById('oddPositionAnswer').innerText = returnHtml;
 		}
 
 	</script>
@@ -170,7 +185,7 @@
 		<h4>Answer:</h4>
 		<p id="answer"></p>
 	</div>
-		<div>
+	<div>
 		<h2>2: Movies</h2>
 		Show In Descending<input type="checkbox" id="descOrder"/>
 		<button onclick="sortMovies('title')">Sort By Title</button>
@@ -179,6 +194,12 @@
 		<button onclick="printMoviesReadable()">Print Readable version</button>
 		<h4>Answer:</h4>
 		<p id="movieAnswer"></p>
+	</div>
+	<div>
+		<h2>4: Odd Position</h2>
+		<button onclick="printOddPosition()">Print Odd Positions</button>
+		<h4>Answer:</h4>
+		<p id="oddPositionAnswer"></p>
 	</div>
 </body>
 </html>
